@@ -33,30 +33,20 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
     } else if (e.target.getAttribute("class") == "FlatButton FlatButton--primary FlatButton--size-m") {
         e.target.addEventListener("click", function() {
             ee22 = Object.keys(checklist2);
-            llll3 = "";
-            var llll4 = "";
+            llll3 = [];
             ee22.forEach((item) => {
-
                 checklist2[item].split(" ").forEach((item2) => {
-                    var loc1 = "";
                     if (item2 == "olist_item_wrap_on") {
-                        llll3 += item.split("wrap")[1] + ","; // ид альбомов куда добавлять видео
+                        llll3.push(parseInt(item.split("wrap")[1],10)); // ид плейлистов куда добавлять видео
                         delete checklist2[item];
                     }
                 });
             })
-            ee23 = Object.keys(checklist2);
-            ee23.forEach((item3) => {
-                llll4 += item3.split("wrap")[1] + ",";
-            })
-            llll3 = llll3.substring(llll3.length - 1, 0);
-            llll4 = llll4.substring(llll4.length - 1, 0);
             ee = Object.keys(araayvideolist)
             ee.forEach((item) => {
                 llll1 = item.split("_")[2] // ид владельца
                 llll2 = item.split("_")[3] // ид видео
                 var darsi = function() {
-                    var a1 = llll4;
                     var a2 = parseInt(llll1, 10);
                     var a3 = parseInt(llll2, 10);
                     var a4 = llll3;
@@ -64,9 +54,8 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                         ajax.post('/al_video.php', {
                             act: 'a_add_to_playlist',
                             oid: a2,
-                            vid: a3, //,
-                            //  gid: (641461643 == vk.id) ? undefined : -(641461643),
-                            playlists: [-1, -2, 1, 2], //a1
+                            vid: a3, //
+                            playlists: a4,
                             hash: araayvideolist[item]
                         })
                     }
@@ -128,3 +117,11 @@ document.getElementById("video_all_list").addEventListener("DOMNodeInserted", fu
         fixpositioncrackvideo = document.getElementById("video_all_list").children.length;
     }
 }, false);
+/*
+1 выделение видео и создание списка +
+2 перехват открытия окна(запретить действия пока не открыто) + // решил пока не запрещать
+3 выбор плейлистов и занесение параметров в список +
+4 добавление всех видео при нажатии кнопки сохранить +
+5 полезность данного скрипта в том, что не требуется обращаться к api запросам разработчика
+6 скрипт имеет преимущество над api разработчиков т к там при обращении к приватным видео выдается ошибка доступа и ничего не сделаешь, данный скрипт не выдает ошибки
+*/
