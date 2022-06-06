@@ -34,7 +34,11 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
             };
         })
     } else if (e?.target?.getAttribute?.("class") == "FlatButton FlatButton--primary FlatButton--size-m") {
-        e.target.addEventListener("click", function() {
+		var clone = e.target.cloneNode(true);
+		clone.setAttribute("class","FlatButton FlatButton--primary FlatButton--size-m clonebutton1")
+		e.relatedNode.replaceChild(clone, e.target);
+console.log(e);
+        clone.addEventListener("click", function() {
             ee22 = Object.keys(checklist2);
             ee = Object.keys(araayvideolist)
             loc1 = {};
@@ -74,48 +78,7 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                 ee23.forEach((item3) => {
                     llll4.push(parseInt(item3.split("wrap")[1], 10));
                 })
-                ee67 = Object.keys(loc1);
-                if (ee67.length > 0) {
-                    ee67.forEach((item, indx) => {
-                        if (loc1[item].can_add == 0) {
-                            var darsi = function() {
-                                var index = indx;
-                                var a2 = loc1[item].owner_id;
-                                var a3 = loc1[item].id_video;
-                                var a4 = llll3;
-                                var a1 = loc1[item];
-                                var anomfunc2 = function() {
-                                    ajax.post('/al_video.php', {
-                                        act: 'a_add_to_playlist',
-                                        oid: a2,
-                                        vid: a3, //
-                                        playlists: a4,
-                                        hash: loc1[item].hash
-                                    }, {
-                                        onDone: function(playlistIds) {
-                                            loc1[item].newaddedalbums = a4.difference(playlistIds).reduce((a, v) => ({
-                                                ...a,
-                                                [v]: ''
-                                            }), {});
-                                            console.log(playlistIds) // -2 -1 1 2 показывает в каких альбомах видео уже было.................................из  a4 вычитаем playlistIds и получаем в какие альбомы видео сейчас добавлено
-                                            if (ee67.length == indx + 1) {
-                                                // вызываем следующую функцию
-                                                function2();
-                                            };
-                                        }
-                                    })
-                                }
-                                anomfuncarr.push(anomfunc2);
-                            };
-                            darsi();
-                        } else {
-                            function2();
-                        }
-                    })
-                } else {
-                    function2();
-                }
-                function2 = function() {
+                    function2 = function() {
                     ee68 = Object.keys(loc1);
                     if (ee68.length > 0) {
                         ee68.forEach((item, indx) => {
@@ -222,7 +185,54 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                         }
                     });
                 }
+				
+				 ee67 = Object.keys(loc1);
+                if (ee67.length > 0) {
+                    ee67.forEach((item, indx) => {
+                        if (loc1[item].can_add == 0) {
+                            var darsi = function() {
+                                var index = indx;
+                                var a2 = loc1[item].owner_id;
+                                var a3 = loc1[item].id_video;
+                                var a4 = llll3;
+                                var a1 = loc1[item];
+                                var anomfunc2 = function() {
+                                    ajax.post('/al_video.php', {
+                                        act: 'a_add_to_playlist',
+                                        oid: a2,
+                                        vid: a3, //
+                                        playlists: a4,
+                                        hash: loc1[item].hash
+                                    }, {
+                                        onDone: function(playlistIds) {
+                                            loc1[item].newaddedalbums = a4.difference(playlistIds).reduce((a, v) => ({
+                                                ...a,
+                                                [v]: ''
+                                            }), {});
+                                            console.log(playlistIds) // -2 -1 1 2 показывает в каких альбомах видео уже было.................................из  a4 вычитаем playlistIds и получаем в какие альбомы видео сейчас добавлено
+                                            if (ee67.length == indx + 1) {
+                                                // вызываем следующую функцию
+if (ee67.length == indx + 1) {
+                                    function2();
+                                }                                            };
+                                        }
+                                    })
+                                }
+                                anomfuncarr.push(anomfunc2);
+                            };
+                            darsi();
+                        } else {
+							if (ee67.length == indx + 1) {
+                                    function2();
+                                }
+                        }
+                    })
+                } else {
+                    function2();
+                }
+				
             })
+			boxQueue._hide(boxQueue.curBox)
         })
     }
 });
