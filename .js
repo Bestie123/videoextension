@@ -136,15 +136,27 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
         clone.addEventListener("click", function() {
             ee22 = Object.keys(checklist2);
             araayvideolist = {};
-            listItem23 = document.getElementById("video_all_list").children;
-            listArray23 = [...listItem23];
-            listArray23.forEach((item1111) => {
+			
+			
+			
+			
+			
+			
+			
+			
+		document.getElementsByClassName('video_items_list ').forEach((videolist) => {
+	                //проверять стоят ли обработчики на данном списке, чтоб не вешать их повторно	
+	if (visitsCountMap.has(videolist) == false) {
+    listItem23 = videolist.children;
+    listArray23 = [...listItem23];
+    listArray23.forEach((item1111) => {
                 ggggg = item1111.getAttribute("ckeckn1");
                 if (ggggg == "null" || ggggg == null || ggggg == 0 || ggggg == "0" || ggggg == '0') {} else {
                     araayvideolist[item1111.getAttribute("data-id")] = item1111.getAttribute("data-hash");
 
                 }
             })
+		}})
             ee = Object.keys(araayvideolist)
             loc1 = {};
             eeeegf = vkApi.api('video.get', {
@@ -240,10 +252,12 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                 }
                 function3 = function() {
 
-                    listItem2 = document.getElementById("video_all_list").children;
-                    listArray2 = [...listItem2];
-                    parentvideosarray = [];
-                    listArray2.forEach((item1) => {
+                    document.getElementsByClassName('video_items_list ').forEach((videolist) => {
+	                //проверять стоят ли обработчики на данном списке, чтоб не вешать их повторно	
+	if (visitsCountMap.has(videolist) == false) {
+    listItem234 = videolist.children;
+    listArray234 = [...listItem234];
+    listArray234.forEach((item1) => {
                         ggggg = item1.getAttribute("ckeckn1");
                         if (ggggg == "null" || ggggg == null || ggggg == 0 || ggggg == "0" || ggggg == '0') {} else {
                             item1.setAttribute("style", "");
@@ -291,6 +305,7 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                             }
                         }
                     });
+					}})
                 }
 
                 ee67 = Object.keys(loc1);
