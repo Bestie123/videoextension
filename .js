@@ -3,140 +3,117 @@ Array.prototype.difference = function symmetricDierence(a1) { // проверя�
 }
 
 let visitsCountMap = new Map();
+testcheckshiftalt = [];
+switchingselectionvideo = function(e, r, t) {
+    if (e.target.className === "VideoCard__controls video_item_controls") {
+        var loc2 = t ? t : e.path[3];
+        var loc1 = r ? r : loc2.getAttribute("ckeckn1");
+        if (loc1 == "null" || loc1 == null || loc1 == 0 || loc1 == "0" || loc1 == '0') {
+            //выделение видео в рамку
+            loc2.setAttribute("style", "outline:  4px solid #6640cf; /* Чёрная рамка */    border: 3px solid #fff; /* Белая рамка */    border-radius: 10px; /* Радиус скругления */");
+            loc2.setAttribute("ckeckn1", "1")
+        } else {
+            loc2.setAttribute("style", "");
+            loc2.setAttribute("ckeckn1", "0")
+        }
+    }
+}
+
+listenertonewvideosonlist = function(videolist){
+var fixpositioncrackvideo = videolist.children.length;
+                    videolist.addEventListener("DOMNodeInserted", function(e) {
+                        if (fixpositioncrackvideo <= videolist.children.length) {
+                            e.path[0].addEventListener('click', function(event) {
+                                if (event.shiftKey === true && event.type === "click") { //	если зажат шивт и кликнуто мышкой то выполнить код
+                                    switchingselectionvideo(event);
+                                }
+                            });
+                            fixpositioncrackvideo = videolist.children.length;
+                        }
+                    }, false);	
+}
+
+document.addEventListener('keyup', function(event) {
+    if ((event.code == 'ShiftLeft' && event.altKey == true) || (event.code == 'AltLeft' && event.shiftKey == true)) { //если зажаты обе клавиши и одна или обе отпущены
+        testcheckshiftalt = [];
+    }
+})
 
 // ставит обработчики на видео которые уже есть
 document.getElementsByClassName('video_items_list ').forEach((itemxxx) => {
-var araayvideolist = {};
-listItem2 = itemxxx.children;
-listArray2 = Array.from(listItem2);
-listArray2 = [...listItem2];
-listArray2.forEach((item) => {
-    item.addEventListener('click', function(event) {
-        if (event.shiftKey === true && event.type === "click") { //	если зажат шивт и кликнуто мышкой то выполнить код
-            if (event.target.className === "VideoCard__controls video_item_controls") {
-                ggggg = event.path[3].getAttribute("ckeckn1");
-                if (ggggg == "null" || ggggg == null || ggggg == 0 || ggggg == "0" || ggggg == '0') {
-                    ggggg2 = event.path[3].getAttribute("ckeckn1");
-                    araayvideolist[event.path[3].getAttribute("data-id")] = event.path[3].getAttribute("data-hash");
-                    //выделение видео в рамку
-                    event.path[3].setAttribute("style", "outline:  4px solid #6640cf; /* Чёрная рамка */    border: 3px solid #fff; /* Белая рамка */    border-radius: 10px; /* Радиус скругления */");
-                    event.path[3].setAttribute("ckeckn1", "1")
-                } else {
-                    delete araayvideolist[event.path[3].getAttribute("data-id")];
-                    event.path[3].setAttribute("style", "");
-                    event.path[3].setAttribute("ckeckn1", "0")
-                }
-            }
-        }
-    });
-});
-})
-
-// ставит обработчики на новые видео в списке
-document.getElementsByClassName('video_items_list ').forEach((itemxxx) => {
-var fixpositioncrackvideo = itemxxx.children.length;
-itemxxx.addEventListener("DOMNodeInserted", function(e) {
-    if (fixpositioncrackvideo <= itemxxx.children.length) {
-        e.path[0].addEventListener('click', function(event) {
+    listItem2 = itemxxx.children;
+    listArray2 = [...listItem2];
+    listArray2.forEach((item) => {
+        item.addEventListener('click', function(event) {
             if (event.shiftKey === true && event.type === "click") { //	если зажат шивт и кликнуто мышкой то выполнить код
-                if (event.target.className === "VideoCard__controls video_item_controls") {
-                    ggggg = event.path[3].getAttribute("ckeckn1");
-                    if (ggggg == "null" || ggggg == null || ggggg == 0 || ggggg == "0" || ggggg == '0') {
-                        //выделение видео в рамку
-                        araayvideolist[event.path[3].getAttribute("data-id")] = event.path[3].getAttribute("data-hash");
-                        event.path[3].setAttribute("style", "outline:  4px solid #6640cf; /* Чёрная рамка */    border: 3px solid #fff; /* Белая рамка */    border-radius: 10px; /* Радиус скругления */");
-                        event.path[3].setAttribute("ckeckn1", "1")
+                if (event.altKey != true) {
+               //     -- -- -- -- -- -- -- -- -- --помеенять на правильное
+                    switchingselectionvideo(event);
+                } else {
+                    if (testcheckshiftalt.length > 0) {
+                        var lok1 = Array.prototype.indexOf.call(testcheckshiftalt[0].parentElement.children, testcheckshiftalt[0]);
+                        var lok2 = Array.prototype.indexOf.call(event.path[4].children, event.path[3]);
+                        var lok3 = new Int32Array([lok1, lok2]).sort()
+                        ggggg = testcheckshiftalt[0].getAttribute("ckeckn1");
+
+                        for (let i = lok3[0]; i <= lok3[1]; i++) { // выведет 0, затем 1, затем 2
+                                switchingselectionvideo(event, ggggg, event.path[4].children[i])                           
+                        }
                     } else {
-                        delete araayvideolist[event.path[3].getAttribute("data-id")];
-                        event.path[3].setAttribute("style", "");
-                        event.path[3].setAttribute("ckeckn1", "0")
+                        testcheckshiftalt.push(event.path[3])
                     }
+                    //	проверка глобальной переменной на зажатость и выделение первого видео
+                    //если первое видео выделено то выделять видео между прошлым и этим			
+
                 }
             }
         });
-        fixpositioncrackvideo = itemxxx.children.length;
-    }
-}, false);
-visitsCountMap.set(itemxxx,'');
+    });
+})
+
+
+
+// ставит обработчики на новые видео в списке
+document.getElementsByClassName('video_items_list ').forEach((videolist) => {
+    listenertonewvideosonlist(videolist);
+    visitsCountMap.set(videolist, '');
 })
 
 
 new MutationObserver((mutations, observer) => {
 
-      mutations.forEach(function(mutation) {
-                                if (mutation.target.id=='wrap3'){
-									console.log(mutation)
-								//console.log(	mutation.addedNodes[0].getElementsByClassName('video_items_list VideoGrid  ')[4])
-							hg=	document.getElementById('video_layout_contents')
-								hg.getElementsByClassName('video_items_list ').forEach((itemxxx) => {
-								//проверять соят ли обработчики на данном списке, чтоб не вешать их повторно	
-								if (visitsCountMap.has(itemxxx) == false) {	
-																
- araayvideolist = {};
-listItem2 = itemxxx.children;
-listArray2 = Array.from(listItem2);
-listArray2 = [...listItem2];
-listArray2.forEach((item) => {
-    item.addEventListener('click', function(event) {
-        if (event.shiftKey === true && event.type === "click") { //	если зажат шивт и кликнуто мышкой то выполнить код
-            if (event.target.className === "VideoCard__controls video_item_controls") {
-                ggggg = event.path[3].getAttribute("ckeckn1");
-                if (ggggg == "null" || ggggg == null || ggggg == 0 || ggggg == "0" || ggggg == '0') {
-                    ggggg2 = event.path[3].getAttribute("ckeckn1");
-                    araayvideolist[event.path[3].getAttribute("data-id")] = event.path[3].getAttribute("data-hash");
-                    //выделение видео в рамку
-                    event.path[3].setAttribute("style", "outline:  4px solid #6640cf; /* Чёрная рамка */    border: 3px solid #fff; /* Белая рамка */    border-radius: 10px; /* Радиус скругления */");
-                    event.path[3].setAttribute("ckeckn1", "1")
+    mutations.forEach(function(mutation) {
+        if (mutation.target.id == 'wrap3') {
+            hg = document.getElementById('video_layout_contents')
+            hg.getElementsByClassName('video_items_list ').forEach((videolist) => {
+                //проверять стоят ли обработчики на данном списке, чтоб не вешать их повторно	
+                if (visitsCountMap.has(videolist) == false) {
+                    listItem2 = videolist.children;
+                    listArray2 = [...listItem2];
+                    listArray2.forEach((item) => {
+                        item.addEventListener('click', function(event) {
+                            if (event.shiftKey === true && event.type === "click") { //	если зажат шивт и кликнуто мышкой то выполнить код
+                                switchingselectionvideo(event);
+                            }
+                        });
+                    });
+
+// ставит обработчики на новые видео в списке
+                    listenertonewvideosonlist(videolist);
+                    visitsCountMap.set(videolist, '');
                 } else {
-                    delete araayvideolist[event.path[3].getAttribute("data-id")];
-                    event.path[3].setAttribute("style", "");
-                    event.path[3].setAttribute("ckeckn1", "0")
+                    visitsCountMap.clear(); // защита от переполнения памяти указателями на новые списки видео
+                    visitsCountMap.set(videolist, '');
                 }
-            }
+            })
         }
     });
+}).observe(document, {
+    childList: true,
+    subtree: true
 });
 
-var fixpositioncrackvideo = itemxxx.children.length;
-itemxxx.addEventListener("DOMNodeInserted", function(e) {
-    if (fixpositioncrackvideo <= itemxxx.children.length) {
-        e.path[0].addEventListener('click', function(event) {
-            if (event.shiftKey === true && event.type === "click") { //	если зажат шивт и кликнуто мышкой то выполнить код
-                if (event.target.className === "VideoCard__controls video_item_controls") {
-                    ggggg = event.path[3].getAttribute("ckeckn1");
-                    if (ggggg == "null" || ggggg == null || ggggg == 0 || ggggg == "0" || ggggg == '0') {
-                        //выделение видео в рамку
-                        araayvideolist[event.path[3].getAttribute("data-id")] = event.path[3].getAttribute("data-hash");
-                        event.path[3].setAttribute("style", "outline:  4px solid #6640cf; /* Чёрная рамка */    border: 3px solid #fff; /* Белая рамка */    border-radius: 10px; /* Радиус скругления */");
-                        event.path[3].setAttribute("ckeckn1", "1")
-                    } else {
-                        delete araayvideolist[event.path[3].getAttribute("data-id")];
-                        event.path[3].setAttribute("style", "");
-                        event.path[3].setAttribute("ckeckn1", "0")
-                    }
-                }
-            }
-        });
-        fixpositioncrackvideo = itemxxx.children.length;
-    }
-}, false);		
-									
-									
-									
-									
-									
-									
-									
-									
-	visitsCountMap.set(itemxxx,'');								
-								}	
-})
 
-								}
-                            });    
-  }).observe(document, {childList: true, subtree: true});
-  
-  
 anomfuncarr = [];
 setInterval(function() {
     anomfuncarr.shift()?.()
@@ -170,12 +147,22 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
             };
         })
     } else if (e?.target?.getAttribute?.("class") == "FlatButton FlatButton--primary FlatButton--size-m") {
-		var clone = e.target.cloneNode(true);
-		clone.setAttribute("class","FlatButton FlatButton--primary FlatButton--size-m clonebutton1")
-		e.relatedNode.replaceChild(clone, e.target);
-console.log(e);
+        var clone = e.target.cloneNode(true);
+        clone.setAttribute("class", "FlatButton FlatButton--primary FlatButton--size-m clonebutton1")
+        e.relatedNode.replaceChild(clone, e.target);
+        console.log(e);
         clone.addEventListener("click", function() {
             ee22 = Object.keys(checklist2);
+            araayvideolist = {};
+            listItem23 = document.getElementById("video_all_list").children;
+            listArray23 = [...listItem23];
+            listArray23.forEach((item1111) => {
+                ggggg = item1111.getAttribute("ckeckn1");
+                if (ggggg == "null" || ggggg == null || ggggg == 0 || ggggg == "0" || ggggg == '0') {} else {
+                    araayvideolist[item1111.getAttribute("data-id")] = item1111.getAttribute("data-hash");
+
+                }
+            })
             ee = Object.keys(araayvideolist)
             loc1 = {};
             eeeegf = vkApi.api('video.get', {
@@ -214,7 +201,7 @@ console.log(e);
                 ee23.forEach((item3) => {
                     llll4.push(parseInt(item3.split("wrap")[1], 10));
                 })
-                    function2 = function() {
+                function2 = function() {
                     ee68 = Object.keys(loc1);
                     if (ee68.length > 0) {
                         ee68.forEach((item, indx) => {
@@ -277,6 +264,8 @@ console.log(e);
                     listArray2.forEach((item1) => {
                         ggggg = item1.getAttribute("ckeckn1");
                         if (ggggg == "null" || ggggg == null || ggggg == 0 || ggggg == "0" || ggggg == '0') {} else {
+                            item1.setAttribute("style", "");
+                            item1.setAttribute("ckeckn1", "0")
                             if (parentvideosarray.length > 0) {
                                 // есть элемент, смотрим в каких альбомах он есть, проверяем есть ли в этом альбоме родительское видео, если да, то сортируем, если нет,  то берем более высокий родительский элемент и проверяем
                                 Object.keys(loc1[item1.getAttribute("data-id")].newaddedalbums).forEach((item2) => {
@@ -321,8 +310,8 @@ console.log(e);
                         }
                     });
                 }
-				
-				 ee67 = Object.keys(loc1);
+
+                ee67 = Object.keys(loc1);
                 if (ee67.length > 0) {
                     ee67.forEach((item, indx) => {
                         if (loc1[item].can_add == 0) {
@@ -348,9 +337,10 @@ console.log(e);
                                             console.log(playlistIds) // -2 -1 1 2 показывает в каких альбомах видео уже было.................................из  a4 вычитаем playlistIds и получаем в какие альбомы видео сейчас добавлено
                                             if (ee67.length == indx + 1) {
                                                 // вызываем следующую функцию
-if (ee67.length == indx + 1) {
-                                    function2();
-                                }                                            };
+                                                if (ee67.length == indx + 1) {
+                                                    function2();
+                                                }
+                                            };
                                         }
                                     })
                                 }
@@ -358,17 +348,17 @@ if (ee67.length == indx + 1) {
                             };
                             darsi();
                         } else {
-							if (ee67.length == indx + 1) {
-                                    function2();
-                                }
+                            if (ee67.length == indx + 1) {
+                                function2();
+                            }
                         }
                     })
                 } else {
                     function2();
                 }
-				
+
             })
-			boxQueue._hide(boxQueue.curBox)
+            boxQueue._hide(boxQueue.curBox)
         })
     }
 });
@@ -395,3 +385,17 @@ if (ee67.length == indx + 1) {
     [ид владельца, ид видео, ид видео за которым находилось в массиве, ид владельца за которым находилось в массиве]
 ]
 */
+
+
+
+
+//---------- добавлена возможность перемещать и копировать видео из всех альбомов, раньше работало только с альбомом добавленные
+//-- скрипт будет работать при переключении между альбомами, раньше он сбрасывался
+//-- при копировании или перемещнии видео убирются рамки с выделенных видео
+
+
+
+
+//когда идет сортировка то убирать рамку с текущего видео
+
+//удалять текущее видео если оно удалено из данного альбома
