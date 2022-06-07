@@ -40,8 +40,11 @@ document.addEventListener('keyup', function(event) {
 })
 
 // ставит обработчики на видео которые уже есть
-document.getElementsByClassName('video_items_list ').forEach((itemxxx) => {
-    listItem2 = itemxxx.children;
+listenerhasvideos = function(){
+document.getElementsByClassName('video_items_list ').forEach((videolist) => {
+	                //проверять стоят ли обработчики на данном списке, чтоб не вешать их повторно	
+	if (visitsCountMap.has(videolist) == false) {
+    listItem2 = videolist.children;
     listArray2 = [...listItem2];
     listArray2.forEach((item) => {
         item.addEventListener('click', function(event) {
@@ -69,43 +72,22 @@ document.getElementsByClassName('video_items_list ').forEach((itemxxx) => {
             }
         });
     });
-})
-
-
-
-// ставит обработчики на новые видео в списке
-document.getElementsByClassName('video_items_list ').forEach((videolist) => {
-    listenertonewvideosonlist(videolist);
-    visitsCountMap.set(videolist, '');
-})
-
-
-new MutationObserver((mutations, observer) => {
-
-    mutations.forEach(function(mutation) {
-        if (mutation.target.id == 'wrap3') {
-            hg = document.getElementById('video_layout_contents')
-            hg.getElementsByClassName('video_items_list ').forEach((videolist) => {
-                //проверять стоят ли обработчики на данном списке, чтоб не вешать их повторно	
-                if (visitsCountMap.has(videolist) == false) {
-                    listItem2 = videolist.children;
-                    listArray2 = [...listItem2];
-                    listArray2.forEach((item) => {
-                        item.addEventListener('click', function(event) {
-                            if (event.shiftKey === true && event.type === "click") { //	если зажат шивт и кликнуто мышкой то выполнить код
-                                switchingselectionvideo(event);
-                            }
-                        });
-                    });
-
-// ставит обработчики на новые видео в списке
-                    listenertonewvideosonlist(videolist);
-                    visitsCountMap.set(videolist, '');
-                } else {
+}else {
                     visitsCountMap.clear(); // защита от переполнения памяти указателями на новые списки видео
                     visitsCountMap.set(videolist, '');
                 }
-            })
+				// ставит обработчики на новые видео в списке
+				 listenertonewvideosonlist(videolist);
+    visitsCountMap.set(videolist, '');
+	})
+}
+
+listenerhasvideos();
+
+new MutationObserver((mutations, observer) => {
+    mutations.forEach(function(mutation) {
+        if (mutation.target.id == 'wrap3') {
+        listenerhasvideos();
         }
     });
 }).observe(document, {
@@ -362,40 +344,3 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
         })
     }
 });
-
-
-
-
-/*
-1 выделение видео и создание списка +
-    2 перехват открытия окна(запретить действия пока не открыто) + // решил пока не запрещать
-    3 выбор плейлистов и занесение параметров в список +
-    4 добавление всех видео при нажатии кнопки сохранить +
-    5 полезность данного скрипта в том, что не требуется обращаться к api запросам разработчика
-6 скрипт имеет преимущество над api разработчиков т к там при обращении к приватным видео выдается ошибка доступа и ничего не сделаешь, данный скрипт не выдает ошибки
-1 присвоить к идентификатору каждой записи[хеш, идентификатор доступа] +
-2 разбить записи на два массива - один для api, второй для приватных видео +
-3 перебрать каждый массив и добавить видеозаписи в альбомы +
-4 с помощью api узнать в каких альбомах видео уже есть, восстановить порядковый номер видеозаписей без перемещения тех которые уже находятся в альбомах
-если видео уже находилось в альбоме и идет попытка сортировки, игнорировать сортировку, сортировку пробрасыват на предыдущее видео
-первый метод если cann_add = 0 = [
-    [ид владельца, ид видео, хеш, ид видео за которым находилось в массиве, ид владельца за которым находилось в массиве]
-]
-второй метод если cann add = 1 = [
-    [ид владельца, ид видео, ид видео за которым находилось в массиве, ид владельца за которым находилось в массиве]
-]
-*/
-
-
-
-
-//---------- добавлена возможность перемещать и копировать видео из всех альбомов, раньше работало только с альбомом добавленные
-//-- скрипт будет работать при переключении между альбомами, раньше он сбрасывался
-//-- при копировании или перемещнии видео убирются рамки с выделенных видео
-
-
-
-
-//когда идет сортировка то убирать рамку с текущего видео
-
-//удалять текущее видео если оно удалено из данного альбома
