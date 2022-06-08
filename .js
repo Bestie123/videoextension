@@ -99,7 +99,7 @@ new MutationObserver((mutations, observer) => {
 anomfuncarr = [];
 anomfuncarr2 = [];
 anomfuncarr3 = [];
-checklist2 = {};
+checklist2 = {}; 
 //setInterval(function() {
 //  anomfuncarr.shift()?.()
 //}, 100)
@@ -111,9 +111,9 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
             need_system: 1,
             v: "5.81"
         }, function(r) {}).then(function(values) {
-            console.log(values)
+			            console.log(values)
             if (e.target.parentElement.children.length >= values.count) {
-                console.log(76543)
+				console.log(76543)
                 checklist2 = {}; // выделенные альбомы
                 var albumschecklist = document.getElementsByClassName("olist");
                 albumschecklist2 = albumschecklist[0].children;
@@ -123,14 +123,14 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                     MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver,
                         observer = new MutationObserver(function(mutations) {
                             mutations.forEach(function(mutation) {
-                                console.log(mutation.target.getAttribute("class"));
-                                console.log(mutation);
+								console.log(mutation.target.getAttribute("class"));
+								console.log(mutation);
                                 checklist2[mutation.target.getAttribute("id")] = mutation.target.getAttribute("class");
                             });
                         });
                     observer.observe(item, {
                         childList: true,
-                        attributes: true
+						attributes :true
                     });
                 });
             };
@@ -166,7 +166,7 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
             eeeegf = vkApi.api('video.get', {
                 videos: ee.toString()
             }, function(r) {}).then(function(values232) {
-                console.log(values232)
+									console.log(values232)
                 values232.items.forEach((item, item2) => {
                     var owner_id = item.owner_id,
                         id_video = item.id,
@@ -224,18 +224,18 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                             console.log(values.length);
                                             //anomfuncarr2.pop()?.()
                                             // if (ee68.length == indx + 1) {
-                                            console.log(anomfuncarr2.length);
+												console.log(anomfuncarr2.length);
                                             if (anomfuncarr2.length == 0) {
                                                 function3();
                                             }
-                                            anomfuncarr2.pop()?.()
+											                                            anomfuncarr2.pop()?.()
 
                                         }, function(values) {
-
+											
                                             console.log(values)
-                                            if (values.error.error_code == 6) {
-                                                setTimeout(anomfunc2, 1000);
-                                            }
+											if (values.error.error_code==6){
+												setTimeout(anomfunc2,1000);
+											}
                                         });
                                         /*             Promise.all([eeeegf]).then((values) => {
                                             loc1[item].newaddedalbums = values[0].reduce((a, v) => ({
@@ -262,17 +262,17 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                             console.log(values);
                                             //anomfuncarr2.pop()?.()
                                             // if (ee68.length == indx + 1) {
-                                            console.log(anomfuncarr2.length);
+												console.log(anomfuncarr2.length);
                                             if (anomfuncarr2.length == 0) {
                                                 function3();
                                             }
-                                            anomfuncarr2.pop()?.()
+											                                            anomfuncarr2.pop()?.()
 
                                         }, function(err) {
                                             console.log(err);
-                                            if (err.error.error_code == 6) {
-                                                setTimeout(anomfunc222, 1000);
-                                            }
+											if (err.error.error_code==6){
+												setTimeout(anomfunc222,1000);
+											}
 
                                         });;
                                         /*
@@ -326,7 +326,7 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                             if (parentvideoindxcount > 0) {
                                                 parentvideoindxcount = parentvideoindxcount - 1;
                                                 if (item2 in parentvideosarray[parentvideoindxcount].newaddedalbums) {
-                                                    console.log(true)
+													console.log(true)
                                                     var loc444 = function() {
                                                         var a6 = item1;
                                                         var a1 = item2, // перебирается для конкретного видео
@@ -346,9 +346,9 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                                                 anomfuncarr3.pop()?.()
                                                             }, function(err) {
                                                                 console.log(err)
-                                                                if (err.error.error_code == 6) {
-                                                                    setTimeout(loc333, 1000);
-                                                                }
+																if (err.error.error_code==6){
+												setTimeout(loc333,1000);
+											}
                                                             })
                                                         }
                                                         anomfuncarr3.push(loc333);
@@ -368,7 +368,7 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                             }
                         });
                     })
-                    anomfuncarr3.pop()?.()
+					anomfuncarr3.pop()?.()
                 }
                 var counterino = 0;
                 ee67 = Object.keys(loc1);
@@ -383,7 +383,7 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                 var a3 = loc1[item].id_video;
                                 var a4 = llll3;
                                 var a1 = loc1[item];
-                                var a5 = loc1[item].hash;
+								var a5 = loc1[item].hash;
                                 var anomfunc2 = function() {
                                     var iiii = iiii1;
                                     console.log(iiii)
@@ -403,28 +403,28 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                             succespostcount++;
                                             console.log(succespostcount);
                                             console.log(ee67.length)
-
+                                            
                                             //if (ee67.length == succespostcount) {
                                             if (anomfuncarr.length == 0) {
                                                 // вызываем следующую функцию
                                                 function2();
                                             };
-                                            anomfuncarr.pop()?.();
+											anomfuncarr.pop()?.();
                                         },
                                         onFail: function(e) {
                                             console.log(e)
-                                            if (e == 'Ошибка доступа') {
-                                                succespostcount++;
-                                                console.log(succespostcount);
-                                                console.log(ee67.length)
-                                                //anomfuncarr.pop()?.();
-                                                //if (ee67.length == succespostcount) {
-                                                if (anomfuncarr.length == 0) {
-                                                    // вызываем следующую функцию
-                                                    function2();
-                                                };
-                                                anomfuncarr.pop()?.();
-                                            }
+											if(e=='Ошибка доступа'){
+												succespostcount++;
+                                            console.log(succespostcount);
+                                            console.log(ee67.length)
+                                            //anomfuncarr.pop()?.();
+                                            //if (ee67.length == succespostcount) {
+                                            if (anomfuncarr.length == 0) {
+                                                // вызываем следующую функцию
+                                                function2();
+                                            };
+											anomfuncarr.pop()?.();
+											}
                                         }
                                     })
                                 }
@@ -432,10 +432,10 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                             };
                             darsi();
                         } //else {
-                        //   if (ee67.length == succespostcount) {
-                        // if (anomfuncarr.length == 0) {
-                        //     function2();
-                        // }
+                            //   if (ee67.length == succespostcount) {
+                           // if (anomfuncarr.length == 0) {
+                           //     function2();
+                           // }
                         //}
                     })
                     anomfuncarr.pop()?.();
