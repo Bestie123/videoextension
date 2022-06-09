@@ -5,6 +5,7 @@ Array.prototype.difference = function symmetricDierence(a1) { // проверя�
 let visitsCountMap = new Map();
 testcheckshiftalt = [];
 switchingselectionvideo = function(e, r, t) {
+	console.log(e.target)
     if (e.target.className === "VideoCard__controls video_item_controls") {
         var loc2 = t ? t : e.path[3];
         var loc1 = r ? r : loc2.getAttribute("ckeckn1");
@@ -16,7 +17,11 @@ switchingselectionvideo = function(e, r, t) {
             loc2.setAttribute("style", "");
             loc2.setAttribute("ckeckn1", "0")
         }
-    }
+    }else if(e.target.className=='VideoCard__action VideoCard__action--move'){
+		var loc2 = t ? t : e.path[5];
+		loc2.setAttribute("style", "outline:  4px solid #6640cf; /* Чёрная рамка */    border: 3px solid #fff; /* Белая рамка */    border-radius: 10px; /* Радиус скругления */");
+            loc2.setAttribute("ckeckn1", "1")
+	}
 }
 
 addeventlistenerclickvideo = function(item) {
@@ -42,7 +47,9 @@ addeventlistenerclickvideo = function(item) {
                 //если первое видео выделено то выделять видео между прошлым и этим			
 
             }
-        }
+        }else if (event.target.className != "VideoCard__controls video_item_controls"){
+			switchingselectionvideo(event);
+		}
     });
 
 }
@@ -138,6 +145,10 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
             console.log(err)
         })
     } else if (e?.target?.getAttribute?.("class") == "FlatButton FlatButton--primary FlatButton--size-m") {
+		  countersuccesvideolabel = document.createElement('span');
+		countersuccesvideolabel.className = "pl_size";
+		document.getElementsByClassName("box_controls")[0].prepend(countersuccesvideolabel)
+		
         var clone = e.target.cloneNode(true);
         clone.setAttribute("class", "FlatButton FlatButton--primary FlatButton--size-m clonebutton1")
         e.relatedNode.replaceChild(clone, e.target);
@@ -161,11 +172,17 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                     }
                 })
             })
+			kimiko = Object.keys(araayvideolist).length
+kimiko2=0;
             ee = Object.keys(araayvideolist)
             loc1 = {};
             eeeegf = vkApi.api('video.get', {
                 videos: ee.toString()
             }, function(r) {}).then(function(values232) {
+				                    var succespostcount = 0;
+									var succespostcount2 =0;
+																		var succespostcount3 =0;
+
 									console.log(values232)
                 values232.items.forEach((item, item2) => {
                     var owner_id = item.owner_id,
@@ -199,6 +216,7 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                     llll4.push(parseInt(item3.split("wrap")[1], 10));
                 })
                 function2 = function() {
+console.log('function2')
 
                     ee68 = Object.keys(loc1);
                     if (ee68.length > 0) {
@@ -225,6 +243,10 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                             //anomfuncarr2.pop()?.()
                                             // if (ee68.length == indx + 1) {
 												console.log(anomfuncarr2.length);
+																								succespostcount++;
+
+												kimiko2 =succespostcount;
+												countersuccesvideolabel.textContent= 'Загружено '+succespostcount +' из '+kimiko+' видео';
                                             if (anomfuncarr2.length == 0) {
                                                 function3();
                                             }
@@ -297,7 +319,16 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                             //   }
                             //   }
                         })
-                        anomfuncarr2.pop()?.()
+						
+						
+						if (anomfuncarr2.length == 0) {
+												function3();
+                                            }else{
+					anomfuncarr2.pop()?.()
+											}
+						
+						
+                       // anomfuncarr2.pop()?.()
                     } else {
                         function3();
                     }
@@ -307,7 +338,7 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                     //function3() //----------------------------------------------------------------------------------------------------
                 }
                 function3 = function() {
-
+console.log('function3')
                     document.getElementsByClassName('video_items_list ').forEach((videolist) => {
                         //проверять стоят ли обработчики на данном списке, чтоб не вешать их повторно	
                         listItem234 = videolist.children;
@@ -343,6 +374,14 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                                                 after_video_id: a5
                                                             }, function(r) {}).then(function(values) {
                                                                 console.log(values);
+																succespostcount2++;
+
+												//kimiko2 =succespostcount;
+												countersuccesvideolabel.textContent= 'Отсортировано '+succespostcount2 +' из '+succespostcount3+' видео';
+												
+												if (anomfuncarr3.length == 0) {
+												boxQueue._hide(boxQueue.curBox)
+                                            }							
                                                                 anomfuncarr3.pop()?.()
                                                             }, function(err) {
                                                                 console.log(err)
@@ -368,12 +407,17 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                             }
                         });
                     })
+					succespostcount3 = anomfuncarr3.length;
+					if (anomfuncarr3.length == 0) {
+												boxQueue._hide(boxQueue.curBox)
+                                            }else{
 					anomfuncarr3.pop()?.()
+											}
                 }
+				console.log('function1')
                 var counterino = 0;
                 ee67 = Object.keys(loc1);
                 if (ee67.length > 0) {
-                    var succespostcount = 0;
                     ee67.forEach((item, indx) => {
                         if (loc1[item].can_add == 0) {
                             var darsi = function() {
@@ -401,6 +445,8 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                             }), {});
                                             console.log(playlistIds) // -2 -1 1 2 показывает в каких альбомах видео уже было.................................из  a4 вычитаем playlistIds и получаем в какие альбомы видео сейчас добавлено
                                             succespostcount++;
+											kimiko2 =succespostcount;
+											countersuccesvideolabel.textContent='Загружено '+succespostcount +' из '+kimiko+' видео';
                                             console.log(succespostcount);
                                             console.log(ee67.length)
                                             
@@ -415,6 +461,8 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                             console.log(e)
 											if(e=='Ошибка доступа'){
 												succespostcount++;
+												kimiko2 =succespostcount;
+												countersuccesvideolabel.textContent= 'Загружено '+succespostcount +' из '+kimiko+' видео';
                                             console.log(succespostcount);
                                             console.log(ee67.length)
                                             //anomfuncarr.pop()?.();
@@ -431,12 +479,14 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                 anomfuncarr.push(anomfunc2);
                             };
                             darsi();
-                        } //else {
-                            //   if (ee67.length == succespostcount) {
-                           // if (anomfuncarr.length == 0) {
-                           //     function2();
-                           // }
-                        //}
+                        } else {
+                              anomfuncarr.push(function(){
+                             if (anomfuncarr.length == 0) {
+                                function2();
+                            }
+							anomfuncarr.pop()?.();
+                        })
+						}
                     })
                     anomfuncarr.pop()?.();
                 } else {
@@ -446,7 +496,7 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
             }, function(err) {
                 console.log(err)
             })
-            boxQueue._hide(boxQueue.curBox)
+           // boxQueue._hide(boxQueue.curBox) -------------------------------
         })
     }
 });
