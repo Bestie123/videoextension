@@ -2,6 +2,9 @@ Array.prototype.difference = function symmetricDierence(a1) { // проверя�
     return this.filter(x => !a1.includes(x));
 }
 
+init29543 = function(){
+		
+alert(console.log(data));
 
 
 let visitsCountMap = new Map();
@@ -11,6 +14,9 @@ anomfuncarr = [];
 anomfuncarr2 = [];
 anomfuncarr3 = [];
 checklist2 = {};
+parametrspostarray = [];
+parametrspostarray2 = [];
+parametrspostarray3 = [];
 
 switchingselectionvideo = function(e, r, t) {
     console.log(e.target)
@@ -59,7 +65,6 @@ addeventlistenerclickvideo = function(item) {
             switchingselectionvideo(event);
         }
     });
-
 }
 listenertonewvideosonlist = function(videolist) {
     var fixpositioncrackvideo = videolist.children.length;
@@ -118,7 +123,6 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
             need_system: 1,
             v: "5.81"
         }, function(r) {}).then(function(values) {
-            if (e.target.parentElement.children.length >= values.count) {
                 checklist2 = {}; // выделенные альбомы
                 var albumschecklist = document.getElementsByClassName("olist");
                 albumschecklist2 = albumschecklist[0].children;
@@ -128,19 +132,23 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                     MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver,
                         observer = new MutationObserver(function(mutations) {
                             mutations.forEach(function(mutation) {
+								console.log(mutation);
                                 checklist2[mutation.target.getAttribute("id")] = mutation.target.getAttribute("class");
                             });
                         });
-                    observer.observe(item, {
+                    observer.observe(albumschecklist[0], {
                         childList: true,
-                        attributes: true
+                        attributes: true,
+						 subtree: true
                     });
                 });
-            };
+
         }, function(err) {
             console.log(err)
         })
     } else if (e?.target?.getAttribute?.("class") == "FlatButton FlatButton--primary FlatButton--size-m") {
+		if (document.getElementsByClassName("olist").length >0){
+		
         if (visitsCountMap2.has(document.getElementsByClassName("box_controls")[0]) == false) {
             countersuccesvideolabel = document.createElement('span');
             countersuccesvideolabel.className = "pl_size";
@@ -155,14 +163,26 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
         clone.setAttribute("class", "FlatButton FlatButton--primary FlatButton--size-m clonebutton1")
         e.relatedNode.replaceChild(clone, e.target);
         clone.addEventListener("click", function() {
-            ee22 = Object.keys(checklist2);
             araayvideolist = {};
+            llll3 = [];
+            llll4 = [];
+            loc1 = {};
 
-
-
-
+            // id альбомов куда добавлять				
+            Object.keys(checklist2).forEach((item) => {
+                checklist2[item].split(" ").forEach((item2) => {
+                    if (item2 == "olist_item_wrap_on") {
+                        llll3.push(parseInt(item.split("wrap")[1], 10)); // ид плейлистов куда добавлять видео
+                        delete checklist2[item];
+                    }
+                });
+            })
+            //ид альбомов откуда удалять
+            Object.keys(checklist2).forEach((item3) => {
+                llll4.push(parseInt(item3.split("wrap")[1], 10));
+            })
+            //получаем список выделенных видео
             document.getElementsByClassName('video_items_list ').forEach((videolist) => {
-                //проверять стоят ли обработчики на данном списке, чтоб не вешать их повторно	
                 listItem23 = videolist.children;
                 listArray23 = [...listItem23];
                 listArray23.forEach((item1111) => {
@@ -173,117 +193,108 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                     }
                 })
             })
-            kimiko = Object.keys(araayvideolist).length
-            ee = Object.keys(araayvideolist)
-            loc1 = {};
-            eeeegf = vkApi.api('video.get', {
-                videos: ee.toString()
-            }, function(r) {}).then(function(values232) {
+            kimiko = Object.keys(araayvideolist).length // количество выделенных видео для вывода счетчика	
+
+   addremovesortvideo = function() {
                 var succespostcount = 0;
                 var succespostcount2 = 0;
                 var succespostcount3 = 0;
-                values232.items.forEach((item, item2) => {
-                    var owner_id = item.owner_id,
-                        id_video = item.id,
-                        parent_owner_id = values232.items[item2 - 1]?.owner_id,
-                        parent_id_video = values232.items[item2 - 1]?.id,
-                        pointervidobj = loc1[owner_id + '_' + id_video] = {
-                            owner_id: owner_id,
-                            id_video: id_video,
-                            parent_owner_id: parent_owner_id,
-                            parent_id_video: parent_id_video,
-                            newaddedalbums: {},
-                            can_add: item.can_add
-                        }
-                    if (item.can_add == 0) {
-                        pointervidobj.hash = araayvideolist[String(owner_id) + "_" + String(id_video)]
+
+
+                // копирование, добавление и удаление видео для не приватных видео
+                addremovevideo = function(item) {
+                    var anomfunc2 = function() {
+                        eeeegf = vkApi.api('video.addToAlbum', {
+                            album_ids: llll3.toString(),
+                            owner_id: loc1[item].owner_id,
+                            video_id: loc1[item].id_video,
+                            v: "5.81"
+                        }, function(r) {}).then(function(values) {
+                            loc1[item].newaddedalbums = values.reduce((a, v) => ({
+                                ...a,
+                                [v]: ''
+                            }), {});
+                            anomfunc222()
+                        }, function(err) {
+                            console.log(err)
+                            if (err.error.error_code == 6) {
+                                setTimeout(anomfunc2, 1000);
+                            }
+                        });
                     }
-                });
-                llll3 = [];
-                ee22.forEach((item) => {
-                    checklist2[item].split(" ").forEach((item2) => {
-                        if (item2 == "olist_item_wrap_on") {
-                            llll3.push(parseInt(item.split("wrap")[1], 10)); // ид плейлистов куда добавлять видео
-                            delete checklist2[item];
-                        }
-                    });
-                })
-                llll4 = [];
-                ee23 = Object.keys(checklist2);
-                ee23.forEach((item3) => {
-                    llll4.push(parseInt(item3.split("wrap")[1], 10));
-                })
+                    var anomfunc222 = function() {
+                        vkApi.api('video.removeFromAlbum', {
+                            album_ids: llll4,
+                            owner_id: loc1[item].owner_id,
+                            video_id: loc1[item].id_video,
+                            v: "5.81"
+                        }, function(r) {}).then(function(values) {
+                            console.log(values);
+                            succespostcount++;
+                            countersuccesvideolabel.textContent = 'Загружено ' + succespostcount + ' из ' + kimiko + ' видео';
+                            if (parametrspostarray3.length == 0) {
+                                function3();
+                            } else {
+                                addremovevideo(parametrspostarray3.pop())
+                            }
+                        }, function(err) {
+                            console.log(err);
+                            if (err.error.error_code == 6) {
+                                setTimeout(anomfunc222, 1000);
+                            }
+                        });;
+                    }
+                    anomfunc2();
+                }
+
                 function2 = function() {
                     console.log('function2')
-
                     ee68 = Object.keys(loc1);
                     if (ee68.length > 0) {
                         ee68.forEach((item, indx) => {
                             if (loc1[item].can_add == 1) {
-                                var darsi = function() {
-                                    var a1 = llll4;
-                                    var a4 = llll3.toString();
-                                    var a2 = loc1[item].owner_id;
-                                    var a3 = loc1[item].id_video;
-                                    var anomfunc2 = function() {
-                                        eeeegf = vkApi.api('video.addToAlbum', {
-                                            album_ids: a4,
-                                            owner_id: a2,
-                                            video_id: a3,
-                                            v: "5.81"
-                                        }, function(r) {}).then(function(values) {
-                                            loc1[item].newaddedalbums = values.reduce((a, v) => ({
-                                                ...a,
-                                                [v]: ''
-                                            }), {});
-                                            succespostcount++;
-                                            countersuccesvideolabel.textContent = 'Загружено ' + succespostcount + ' из ' + kimiko + ' видео';
-                                            if (anomfuncarr2.length == 0) {
-                                                function3();
-                                            }
-                                            anomfuncarr2.pop()?.()
-
-                                        }, function(err) {
-                                            console.log(err)
-                                            if (err.error.error_code == 6) {
-                                                setTimeout(anomfunc2, 1000);
-                                            }
-                                        });
-                                    }
-                                    var anomfunc222 = function() {
-                                       vkApi.api('video.removeFromAlbum', {
-                                            album_ids: a1.toString(),
-                                            owner_id: a2,
-                                            video_id: a3,
-                                            v: "5.81"
-                                        }, function(r) {}).then(function(values) {
-                                            console.log(values);
-                                            if (anomfuncarr2.length == 0) {
-                                                function3();
-                                            }
-                                            anomfuncarr2.pop()?.()
-                                        }, function(err) {
-                                            console.log(err);
-                                            if (err.error.error_code == 6) {
-                                                setTimeout(anomfunc222, 1000);
-                                            }
-                                        });;
-                                    }
-                                    anomfuncarr2.push(anomfunc2);
-                                    anomfuncarr2.push(anomfunc222);
-                                }
-                                darsi();
-                            } 
+                                parametrspostarray3.push(item);
+                            }
                         })
-                        if (anomfuncarr2.length == 0) {
+                        if (parametrspostarray3.length == 0) {
                             function3();
                         } else {
-                            anomfuncarr2.pop()?.()
+							console.log(parametrspostarray3.length)
+                            addremovevideo(parametrspostarray3.pop())
                         }
                     } else {
                         function3();
                     }
                 }
+
+                //сортировка видео, если поменять, например, метод pop на shift то обязательно нужно переворачивать массив с сортируемыми видео
+                // т.к. в нормальном порядке для 100 видео необходимо 100 запросов на сортировку, в обратном же прийдется сделать около 10 000					
+                var loc333 = function(param) {
+                    vkApi.api('video.reorderVideos', {
+                        album_id: param[0],
+                        owner_id: param[1],
+                        video_id: param[2],
+                        after_owner_id: param[3],
+                        after_video_id: param[4]
+                    }, function(r) {}).then(function(values) {
+                        console.log(values);
+                        succespostcount2++;
+                        countersuccesvideolabel.textContent = 'Отсортировано ' + succespostcount2 + ' из ' + succespostcount3 + ' видео';
+                        if (parametrspostarray2.length == 0) {
+                            boxQueue._hide(boxQueue.curBox)
+                        }
+                        setTimeout(function() {
+                            loc333(parametrspostarray2.pop())
+                        }, 100);
+                    }, function(err) {
+                        console.log(err)
+                        if (err.error.error_code == 6) {
+                            setTimeout(loc333, 100, param);
+                        }
+                    })
+                }
+
+
                 function3 = function() {
                     console.log('function3')
                     document.getElementsByClassName('video_items_list ').forEach((videolist) => {
@@ -304,41 +315,12 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                                             if (parentvideoindxcount > 0) {
                                                 parentvideoindxcount = parentvideoindxcount - 1;
                                                 if (item2 in parentvideosarray[parentvideoindxcount].newaddedalbums) {
-                                                    var loc444 = function() {
-                                                        var a6 = item1;
-                                                        var a1 = item2, // перебирается для конкретного видео
-                                                            a2 = loc1[a6.getAttribute("data-id")].owner_id,
-                                                            a3 = loc1[a6.getAttribute("data-id")].id_video,
-                                                            a4 = parentvideosarray[parentvideoindxcount].owner_id,
-                                                            a5 = parentvideosarray[parentvideoindxcount].id_video
-                                                        var loc333 = function() {
-                                                            vkApi.api('video.reorderVideos', {
-                                                                album_id: a1,
-                                                                owner_id: a2,
-                                                                video_id: a3,
-                                                                after_owner_id: a4,
-                                                                after_video_id: a5
-                                                            }, function(r) {}).then(function(values) {
-                                                                console.log(values);
-                                                                succespostcount2++;
-                                                                countersuccesvideolabel.textContent = 'Отсортировано ' + succespostcount2 + ' из ' + succespostcount3 + ' видео';
-                                                                if (anomfuncarr3.length == 0) {
-                                                                    boxQueue._hide(boxQueue.curBox)
-                                                                }
-                                                                setTimeout(function() {
-                                                                    anomfuncarr3.pop()?.()
-                                                                }, 100);
-                                                            }, function(err) {
-                                                                console.log(err)
-                                                                if (err.error.error_code == 6) {
-                                                                    setTimeout(loc333, 100);
-                                                                }
-                                                            })
-                                                        }
-                                                        anomfuncarr3.push(loc333);
-
-                                                    }
-                                                    loc444();
+                                                    var a1 = item2, // перебирается для конкретного видео
+                                                        a2 = loc1[item1.getAttribute("data-id")].owner_id,
+                                                        a3 = loc1[item1.getAttribute("data-id")].id_video,
+                                                        a4 = parentvideosarray[parentvideoindxcount].owner_id,
+                                                        a5 = parentvideosarray[parentvideoindxcount].id_video
+                                                    parametrspostarray2.push([a1, a2, a3, a4, a5]);
                                                 } else {
                                                     nestedparentvideo()
                                                 }
@@ -353,94 +335,162 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
                             }
                         });
                     })
-                    succespostcount3 = anomfuncarr3.length;
-                    if (anomfuncarr3.length == 0) {
+                    succespostcount3 = parametrspostarray2.length;
+                    if (parametrspostarray2.length == 0) {
                         boxQueue._hide(boxQueue.curBox)
                     } else {
-                        anomfuncarr3 = anomfuncarr3.reverse()
-                        anomfuncarr3.pop()?.()
+                        parametrspostarray2 = parametrspostarray2.reverse()
+                        loc333(parametrspostarray2.pop())
                     }
                 }
+
+                // копирование, добавление и удаление видео для  ПРИВАТНЫХ видео
+
+                anomfunc233 = function(param) {
+                    ajax.post('/al_video.php', {
+                        act: 'a_add_to_playlist',
+                        oid: loc1[param].owner_id,
+                        vid: loc1[param].id_video,
+                        playlists: llll3,
+                        hash: loc1[param].hash
+                    }, {
+                        onDone: function(playlistIds) {
+                            loc1[param].newaddedalbums = llll3.difference(playlistIds).reduce((a, v) => ({
+                                ...a,
+                                [v]: ''
+                            }), {});
+                            // -2 -1 1 2 показывает в каких альбомах видео уже было.................................из  a4 вычитаем playlistIds и получаем в какие альбомы видео сейчас добавлено
+                            succespostcount++;
+                            countersuccesvideolabel.textContent = 'Загружено ' + succespostcount + ' из ' + kimiko + ' видео';
+                            if (parametrspostarray.length == 0) {
+                                // вызываем следующую функцию
+                                function2();
+                            } else anomfunc233(parametrspostarray.pop())
+                        },
+                        onFail: function(e) {
+                            console.log(e)
+                            if (e == 'Ошибка доступа') {
+                                succespostcount++;
+                                countersuccesvideolabel.textContent = 'Загружено ' + succespostcount + ' из ' + kimiko + ' видео';
+                                if (parametrspostarray.length == 0) {
+                                    // вызываем следующую функцию
+                                    function2();
+                                };
+                                anomfunc233(parametrspostarray.pop())
+                            }
+                        }
+                    })
+                }
+
                 console.log('function1')
-                var counterino = 0;
                 ee67 = Object.keys(loc1);
                 if (ee67.length > 0) {
                     ee67.forEach((item, indx) => {
                         if (loc1[item].can_add == 0) {
-                            var darsi = function() {
-                                var iiii1 = counterino++
-                                var index = indx;
-                                var a2 = loc1[item].owner_id;
-                                var a3 = loc1[item].id_video;
-                                var a4 = llll3;
-                                var a1 = loc1[item];
-                                var a5 = loc1[item].hash;
-                                var anomfunc2 = function() {
-                                    var iiii = iiii1;
-                                    console.log(iiii)
-                                    ajax.post('/al_video.php', {
-                                        act: 'a_add_to_playlist',
-                                        oid: a2,
-                                        vid: a3, //
-                                        playlists: a4,
-                                        hash: a5
-                                    }, {
-                                        onDone: function(playlistIds) {
-                                            loc1[item].newaddedalbums = a4.difference(playlistIds).reduce((a, v) => ({
-                                                ...a,
-                                                [v]: ''
-                                            }), {});
-                                    // -2 -1 1 2 показывает в каких альбомах видео уже было.................................из  a4 вычитаем playlistIds и получаем в какие альбомы видео сейчас добавлено
-                                            succespostcount++;
-                                            countersuccesvideolabel.textContent = 'Загружено ' + succespostcount + ' из ' + kimiko + ' видео';
-                                            if (anomfuncarr.length == 0) {
-                                                // вызываем следующую функцию
-                                                function2();
-                                            };
-                                            anomfuncarr.pop()?.();
-                                        },
-                                        onFail: function(e) {
-                                            console.log(e)
-                                            if (e == 'Ошибка доступа') {
-                                                succespostcount++;
-                                                countersuccesvideolabel.textContent = 'Загружено ' + succespostcount + ' из ' + kimiko + ' видео';
-                                                if (anomfuncarr.length == 0) {
-                                                    // вызываем следующую функцию
-                                                    function2();
-                                                };
-                                                anomfuncarr.pop()?.();
-                                            }
-                                        }
-                                    })
-                                }
-                                anomfuncarr.push(anomfunc2);
-                            };
-                            darsi();
-                        } else {
-                            anomfuncarr.push(function() {
-                                if (anomfuncarr.length == 0) {
-                                    function2();
-                                }
-                                anomfuncarr.pop()?.();
-                            })
+                            parametrspostarray.push(item);
                         }
                     })
-                    anomfuncarr.pop()?.();
+                    if (parametrspostarray.length == 0) {
+                        // вызываем следующую функцию
+                        function2();
+                    } else {
+						console.log(parametrspostarray.lengt);
+                        anomfunc233(parametrspostarray.pop())
+                    }
                 } else {
                     function2();
                 }
+            }
+			
+			
+			       // 	получаем информацию о параметре can_add для разделения видео на приватные и все остальные		
+			
+			 
+ function spl(arr, size) {
+  var result = [];
+  var len = arr.length;
+  for (var i=0; i<len; i+=size) {
+     result.push(arr.slice(i,i+size));
+  }
+  return result;
+}
 
-            }, function(err) {
+ az1111 = spl(Object.keys(araayvideolist),200);
+
+	getlistvideos = function(list){		
+			 eeeegf = vkApi.api('video.get', {
+				count: 200,
+                videos: list.toString()
+            }).then(function(values232){
+			   //добавляем подмножества
+			    // создаем объект с информацией о всех видео, отдельно для приватных ставим хеш
+                values232.items.forEach((item, item2) => {
+                    var owner_id = item.owner_id,
+                        id_video = item.id,
+                        parent_owner_id = values232.items[item2 - 1]?.owner_id,
+                        parent_id_video = values232.items[item2 - 1]?.id,
+                        pointervidobj = loc1[owner_id + '_' + id_video] = {
+                            owner_id: owner_id,
+                            id_video: id_video,
+                            parent_owner_id: parent_owner_id,
+                            parent_id_video: parent_id_video,
+                            newaddedalbums: {},
+                            can_add: item.can_add
+                        }
+                    if (item.can_add == 0) {
+                        pointervidobj.hash = araayvideolist[String(owner_id) + "_" + String(id_video)]
+                    }
+                });
+				
+				if(az1111.length>0){
+getlistvideos(az1111.pop());
+				}else{
+addremovesortvideo();					
+				}
+			}, function(err) {
                 console.log(err)
             })
+	}
+	getlistvideos(az1111.pop());
         })
-
-
     }
+}
 });
 
+};
 
 
+window.addEventListener('message', function(event) {
+	console.log(event)
+var  lom1 = event.data[0];
+//console.log(lom1.hash.match('code')[0])
+
+if (lom1?.hash?.match('code')?.[0] == 'code'){
+	console.log(lom1?.hash?.match('code')?.[0] == 'code')
+var code = lom1.hash.substr(1)
+console.log(code)
+	authorizeocno.postMessage(['https://oauth.vk.com/access_token?client_id=8182193&client_secret=NEZARECHHOMgJVpy06RK&redirect_uri=https://vk.com/blank.html&'+code,'',1], '*');
+	console.log(authorizeocno)
+    }else if(lom1.href.match('access_token')[0]=='access_token'){
+			//console.log(event.data[1])
+console.log(333)
+zzzzzzzzzzzzzzzzzzz=event.data[1];
+			vkApi.setApiConfig({
+        appId: 8182193,
+        version: '5.81',//,//,
+		accessToken: event.data[1]
+		// onTokenExpired: function() {
+        //    return m("web_token", {}, {}, !0).then((function(e) {
+             //   return e.access_token || ""
+          //  }))
+      //  }
+    })
+	//console.log(event.data[1])
+	init29543();
+}
+})
+var authorizeocno = window.open('https://oauth.vk.com/authorize?client_id=8182193&display=page&redirect_uri=https://vk.com/blank.html&scope=friends,video,offline&response_type=code&v=5.131')
+		
 
 /*
 1 выделение видео и создание списка +
@@ -480,3 +530,19 @@ document.body.addEventListener("DOMNodeInserted", function(e) {
 
 //----------- сломан родной отправитель видео, починить кнопку
 //--------возможно если обрабатывать ответ то получится обрабатывать капчу
+
+
+// пофикшена кнопка добавления альбомов
+// добавлен счетчик добавления видео и счетчик сортировки видео в альбомах 
+// оптимизирован код: раньше запросы отправлялись асинхронно  и появление капчи провоцировало ошибку сортировки видео, теперь запросы отправляются последовательно
+// если появляется капча, то обработка всех видео приостанавливается и продолжается после ввода капчи( при открытии консоли был обнаружен баг, что ввод капчи ломался и приходилось сбарсывать обработку видео)
+// добавлен обработка некоторых частых ошибок при запросах
+// пофикшено выделение альбомов для чужих видео, раньше выделение ломалось если выбрано видео которое не загружено лично пользователем и все видео удалялись со всех альбомов кроме альбома загруженные
+// --внедрено приложение вконтакте для ускорения обработки запросов, если обычным способом потребуется отсортировать 1000 копий видео в нескольких альбомах, то с внедрением приложения потребуется всего 40 запросов
+//-- для внедрения приложения создан отдельный скрипт, он необходим для создания связи для междоменной авторизации приложения
+//--при получении ключа доступа для приложения при попытке переадресации на домен vk.com, вконтакте принудительно перенаправляет на api.vk.com, поэтому появляется запрет
+//-- на междоменное общение между окнами и фреймами, поэтому создан отдельный скрипт для внедрения в окно получения токена доступа и создания связи между vk.com, oauth.vk.com и api.vk.com
+
+
+//--добавить сохранение токена
+// -- закрытие страницы авторизации
