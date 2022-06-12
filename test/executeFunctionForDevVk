@@ -1,0 +1,71 @@
+var items = ["641461643_456240520",'641461643_456240187','641461643_456240185',532,57,32,5,3252,5,4,52,524,5,25,25,523];
+var items2=[];
+//var items3="'641461643_456240520','641461643_456240187','641461643_456240185'";
+//разделение на блоки
+var result = [];
+var videos = Args.videos;
+//var gg = '641461643_456240520';
+//разбивает строку с видео на массив, получает по 200 видео в одном 
+//запросе и суммирует результат
+// можно получть до 25*200 = 5000 видео за раз
+var response=[];
+  var bukk = videos.split(',');
+var size=200;
+var arr = videos;
+  var len = bukk.length;
+  var i = 0;
+  var kk=0;
+  var owner_id=[];
+  var id=[];
+  var can_add=[];
+  var tmp2={};
+ while (kk<25 && i<len) {
+     //result.push(bukk.slice(i,i+size));
+     items2 = API.video.get({count: 200, videos: bukk.slice(i,i+size)})["items"];//@.id;
+ 
+// var tmp={};
+// tmp.owner_id=items2@.owner_id;
+//owner_id = [...owner_id, ...items2@.owner_id];
+//owner_id.push(items2@.owner_id);
+// tmp.id=items2@.id;
+//id.push(items2@.id);
+// tmp.can_add=items2@.can_add;
+//can_add.push(items2@.can_add);
+var iii=0;
+    var len2 = items2@.can_add.length;
+    while (iii<len2) {
+        var itm = items2@.can_add[iii];
+            can_add.push(itm);
+            
+            var itm = items2@.owner_id[iii];
+            owner_id.push(itm);
+            
+            var itm = items2@.id[iii];
+            id.push(itm);
+
+         iii = iii + 1;
+    }
+ //response.push(tmp);
+     i=i+size;
+     kk=kk+1;
+  }
+  tmp2.count=owner_id.length;
+  tmp2.owner_id=owner_id;
+  tmp2.id=id;
+  tmp2.can_add=can_add;
+  
+  
+//-----------------------------------------------------
+
+//while(i < 25 && count > items.length){
+ //   var cur_count = count - items.length;
+ //   if(cur_count > 100){
+ //      cur_count = 100;
+ //   }
+  //  items = items + API.wall.getComments({"owner_id": owner_id, "post_id": post_id, "offset": offset+100*i, "count": cur_count})["items"];
+  //  i = i + 1;
+//}
+//items2 =  API.video.get({count: 200, videos: result[0]});
+//var g = API.video.get({count: 200, videos: bukk.slice(i,i+size)})["items"];
+//var c = g.response;
+  return tmp2;//result[0][0]+','+result[0][1]+','+result[0][2];
