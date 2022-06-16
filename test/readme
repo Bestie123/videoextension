@@ -1,0 +1,22 @@
+Просто интересные сайты
+
+метод execute
+https://dev.vk.com/method/execute#
+
+количество запросов в секунду
+https://dev.vk.com/api/api-requests
+
+права доступа приложения
+https://vk.com/dev/permissions
+
+dev sanbox  api, vkbridge приложение для экспреиментов с запросами
+https://vk.com/services?w=app7976662_101727957
+
+openapi и vkbridge не имеют смысл т к коды запросов api слишком большие в сравненми с кодом из:
+https://github.com/Bestie123/videoextension/blob/main/test/common.cffda4f88e8e8e0e2a8e.js
+https://raw.githubusercontent.com/Bestie123/videoextension/main/test/common.cffda4f88e8e8e0e2a8e.js
+
+ вырезанный код имеетт длинну около 290 строк
+ 
+ применение openapi не рекомендовано разработчиками т к возможно в будущем его удлят
+ https://dev.vk.com/api/open-api/getting-started
