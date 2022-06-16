@@ -297,48 +297,48 @@ init29543 = function() {
     parametrspostarray = [];
     parametrspostarray2 = [];
     parametrspostarray3 = [];
-    var prependcounterhtml = document.getElementById('react_rootEcosystemServicesNavigationEntry');
-    var mego = document.createElement('h2');
-    //font-size//mego.setAttribute("style", 'color: #17e412; text-shadow: 0 0 7px #0728ef, 0 0 10px #2018ca, 0 0 21px #2e0de6f5, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa; text-align: center;  text-transform: uppercase;  font-weight: 400;')
-    mego.setAttribute("style", 'font-size:140%');
-    mego.textContent = '0';
-    prependcounterhtml.before(mego);
-    var countseleectvideo = 0;
+	var prependcounterhtml = document.getElementById('react_rootEcosystemServicesNavigationEntry');
+	var mego = document.createElement('h2');
+	//font-size//mego.setAttribute("style", 'color: #17e412; text-shadow: 0 0 7px #0728ef, 0 0 10px #2018ca, 0 0 21px #2e0de6f5, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa; text-align: center;  text-transform: uppercase;  font-weight: 400;')
+mego.setAttribute("style",'font-size:140%');
+mego.textContent='0';
+prependcounterhtml.before(mego);
+var countseleectvideo=0;
     switchingselectionvideo = function(e, r, t) {
         console.log(e.target)
         if (e.target.className === "VideoCard__controls video_item_controls") {
             var loc2 = t ? t : e.path[3];
             var loc1 = r ? r : loc2.getAttribute("ckeckn1");
-            var loc3 = loc2.getAttribute("ckeckn1");
+			var loc3 = loc2.getAttribute("ckeckn1");
             if (loc1 == "null" || loc1 == null || loc1 == 0 || loc1 == "0" || loc1 == '0') {
                 //выделение видео в рамку
-
+				
                 loc2.setAttribute("style", "outline:  4px solid #6640cf; /* Чёрная рамка */    border: 3px solid #fff; /* Белая рамка */    border-radius: 10px; /* Радиус скругления */");
                 loc2.setAttribute("ckeckn1", "1")
-                if (loc3 == loc1) {
-                    countseleectvideo = countseleectvideo + 1;
-                    loc2.parentElement.countseleectvideo = countseleectvideo;
-                    mego.textContent = countseleectvideo;
-                    console.log(countseleectvideo);
-                }
+				if (loc3 == loc1){
+				countseleectvideo=countseleectvideo+1;
+				loc2.parentElement.countseleectvideo = countseleectvideo;
+				mego.textContent=countseleectvideo;
+				console.log(countseleectvideo);
+				}
             } else {
                 loc2.setAttribute("style", "");
                 loc2.setAttribute("ckeckn1", "0")
-                if (loc3 == loc1) {
-                    countseleectvideo = countseleectvideo - 1;
-                    loc2.parentElement.countseleectvideo = countseleectvideo;
-                    mego.textContent = countseleectvideo;
-                    console.log(countseleectvideo);
-                }
+				if (loc3 == loc1){
+				countseleectvideo=countseleectvideo-1;
+				loc2.parentElement.countseleectvideo = countseleectvideo;
+				mego.textContent=countseleectvideo;
+				console.log(countseleectvideo);
+				}
             }
         } else if (e.target.className == 'VideoCard__action VideoCard__action--move') {
-
-            var loc2 = t ? t : e.path[5];
-            var loc1 = loc2.getAttribute("ckeckn1");
-            if (loc1 == "null" || loc1 == null || loc1 == 0 || loc1 == "0" || loc1 == '0') {
-                countseleectvideo = countseleectvideo + 1;
-                mego.textContent = countseleectvideo;
-            }
+			 
+			 var loc2 = t ? t : e.path[5];
+			 var loc1 = loc2.getAttribute("ckeckn1");
+			  if (loc1 == "null" || loc1 == null || loc1 == 0 || loc1 == "0" || loc1 == '0') {
+				countseleectvideo=countseleectvideo+1;
+				mego.textContent=countseleectvideo;  
+			  }
             loc2.setAttribute("style", "outline:  4px solid #6640cf; /* Чёрная рамка */    border: 3px solid #fff; /* Белая рамка */    border-radius: 10px; /* Радиус скругления */");
             loc2.setAttribute("ckeckn1", "1")
         }
@@ -387,29 +387,29 @@ init29543 = function() {
 
     // ставит обработчики на видео которые уже есть
     listenerhasvideos = function() {
-        if (document.getElementsByClassName('video_items_list ').length == 0) {
-            mego.textContent = 0;
-        }
+		if (document.getElementsByClassName('video_items_list ').length == 0){
+		mego.textContent=0;	
+		}
         document.getElementsByClassName('video_items_list ').forEach((videolist) => {
             //проверять стоят ли обработчики на данном списке, чтоб не вешать их повторно	
-            if (videolist.initializedvidlist == (false || undefined)) {
+            if (videolist.initializedvidlist == (false || undefined)) { 
                 listItem2 = videolist.children;
                 listArray2 = [...listItem2];
                 listArray2.forEach((item) => {
                     addeventlistenerclickvideo(item);
                 });
-                videolist.countseleectvideo = 0;
-                countseleectvideo = 0;
-                mego.textContent = countseleectvideo;
-                videolist.initializedvidlist = true;
-                // ставит обработчики на новые видео в списке
-                listenertonewvideosonlist(videolist); // 
-            } else if (videolist.style.position == 'relative') {
-                // если список видео был когда-то иницилаизирован то ничего не делать
+				videolist.countseleectvideo = 0;
+				countseleectvideo = 0;
+				mego.textContent=countseleectvideo;
+				videolist.initializedvidlist = true;
+       // ставит обработчики на новые видео в списке
+            listenertonewvideosonlist(videolist); // 
+            } else if (videolist.style.position == 'relative'){
+	 // если список видео был когда-то иницилаизирован то ничего не делать
 
-                countseleectvideo = videolist.countseleectvideo;
-                mego.textContent = countseleectvideo;
-                console.log(countseleectvideo);
+	countseleectvideo = videolist.countseleectvideo;
+	mego.textContent=countseleectvideo;
+	console.log(countseleectvideo);
             }
         })
     }
@@ -467,8 +467,9 @@ init29543 = function() {
                     countersuccesvideolabel = document.createElement('span');
                     countersuccesvideolabel.className = "pl_size";
                     document.getElementsByClassName("box_controls")[0].prepend(countersuccesvideolabel)
-                    document.getElementsByClassName("box_controls")[0].initializedboxcntrl = true //защита от переполнения памяти
-                } else {}
+document.getElementsByClassName("box_controls")[0].initializedboxcntrl = true //защита от переполнения памяти
+                } else {
+                }
                 var clone = e.target.cloneNode(true);
                 clone.setAttribute("class", "FlatButton FlatButton--primary FlatButton--size-m clonebutton1")
                 e.relatedNode.replaceChild(clone, e.target);
@@ -636,6 +637,9 @@ init29543 = function() {
                                 listArray234.forEach((item1) => {
                                     ggggg = item1.getAttribute("ckeckn1");
                                     if (ggggg == "null" || ggggg == null || ggggg == 0 || ggggg == "0" || ggggg == '0') {} else {
+										videolist.countseleectvideo = 0;
+				countseleectvideo = 0;
+				mego.textContent=countseleectvideo;
                                         item1.setAttribute("style", "");
                                         item1.setAttribute("ckeckn1", "0")
                                         if (parentvideosarray.length > 0) {
