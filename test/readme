@@ -12,6 +12,9 @@ https://vk.com/dev/permissions
 dev sanbox  api, vkbridge приложение для экспреиментов с запросами
 https://vk.com/services?w=app7976662_101727957
 
+метолы execute для данного расширения, доступно только администратору
+https://vk.com/editapp?id=8182193&section=functions
+
 openapi и vkbridge не имеют смысл т к коды запросов api слишком большие в сравненми с кодом из:
 https://github.com/Bestie123/videoextension/blob/main/test/common.cffda4f88e8e8e0e2a8e.js
 https://raw.githubusercontent.com/Bestie123/videoextension/main/test/common.cffda4f88e8e8e0e2a8e.js
